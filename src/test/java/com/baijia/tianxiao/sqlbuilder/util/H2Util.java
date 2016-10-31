@@ -1,36 +1,36 @@
 package com.baijia.tianxiao.sqlbuilder.util;
 
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.h2.tools.RunScript;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * H2内存数据库测试专用工具
- * 
- * @author xiaoming.chen
  *
+ * @author xiaoming.chen
  */
 @Slf4j
 public class H2Util {
 
     /**
-     * 
+     *
      */
     private static final String DEFAULT_H2_PASSWORD = "password";
     /**
-     * 
+     *
      */
     private static final String DEFAULT_H2_USERNAME = "sa";
 
     /**
      * 返回默认用户名和密码的h2数据源
-     * 
+     *
      * @return h2数据源
      */
     public static DataSource getH2MemDataSource() {
@@ -39,7 +39,7 @@ public class H2Util {
 
     /**
      * 创建指定用户名和密码的h2内存数据库
-     * 
+     *
      * @param username 用户名
      * @param password 密码
      * @return h2数据源
@@ -85,8 +85,8 @@ public class H2Util {
 
     /**
      * 将sql文件导入到h2数据库中，SQL文件例子：/conf/H2Test.sql
-     * 
-     * @param conn h2数据库连接
+     *
+     * @param conn     h2数据库连接
      * @param location 文件路径，一般放在 test的 resources文件夹的conf目录下
      * @throws SQLException 抛出SQL异常
      */
@@ -99,7 +99,7 @@ public class H2Util {
 
     /**
      * 清理内存数据库
-     * 
+     *
      * @param conn 内存数据库连接
      */
     public static void clearMemDB(Connection conn) {

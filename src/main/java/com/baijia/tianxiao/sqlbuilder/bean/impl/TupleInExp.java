@@ -8,29 +8,27 @@ import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title InCondition
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
- * @version 1.0
  */
 public class TupleInExp implements Expression {
 
-    private List<String> tupleProperty;
-
-    private Collection<List<Object>> values;
-
-    private Map<String, Object> inConditionMap = new HashMap<String, Object>();
-
     public static final SQLOperator OPERATOR = SQLOperator.IN;
+    private List<String> tupleProperty;
+    private Collection<List<Object>> values;
+    private Map<String, Object> inConditionMap = new HashMap<String, Object>();
 
     public TupleInExp(List<String> tupleProperty, Collection<List<Object>> values) {
         this.tupleProperty = tupleProperty;
@@ -60,7 +58,7 @@ public class TupleInExp implements Expression {
         int i = 0;
         for (Collection<?> tupleValue : this.values) {
             Preconditions.checkArgument(tupleValue.size() == this.tupleProperty.size(),
-                "tuple value is not match property size");
+                    "tuple value is not match property size");
             int j = 0;
             if (sb.length() > 0) {
                 sb.append(",");

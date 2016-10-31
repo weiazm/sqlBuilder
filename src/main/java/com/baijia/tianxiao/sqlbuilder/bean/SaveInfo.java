@@ -2,11 +2,10 @@ package com.baijia.tianxiao.sqlbuilder.bean;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import lombok.Data;
 
 import java.util.Map;
 import java.util.Set;
-
-import lombok.Data;
 
 @Data
 public class SaveInfo {

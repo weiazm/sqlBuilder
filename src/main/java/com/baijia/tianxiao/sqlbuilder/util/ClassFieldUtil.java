@@ -3,24 +3,21 @@
  */
 package com.baijia.tianxiao.sqlbuilder.util;
 
-import com.baijia.tianxiao.sqlbuilder.annotation.Column;
-import com.baijia.tianxiao.sqlbuilder.annotation.Entity;
-import com.baijia.tianxiao.sqlbuilder.annotation.GeneratedValue;
-import com.baijia.tianxiao.sqlbuilder.annotation.Id;
-import com.baijia.tianxiao.sqlbuilder.annotation.Table;
+import com.baijia.tianxiao.sqlbuilder.annotation.*;
 import com.baijia.tianxiao.sqlbuilder.schema.ColumnDefine;
 import com.baijia.tianxiao.sqlbuilder.schema.TableDefine;
+import org.apache.commons.lang3.StringUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import org.apache.commons.lang3.StringUtils;
 
 /**
- * @title ClassFieldUtil
- * @desc 根据类的注解读取数据库配置,待实现
  * @author cxm
- * @date 2015年8月7日
  * @version 1.0
+ * @title ClassFieldUtil
+ * @desc 根据类的注解读取数据库配置, 待实现
+ * @date 2015年8月7日
  */
 public class ClassFieldUtil {
 
@@ -120,7 +117,7 @@ public class ClassFieldUtil {
 
     public static String getFieldNameFromGetOrSetMethodName(String methodName) {
         if (StringUtils.isBlank(methodName) || (!methodName.startsWith("get") && !methodName.startsWith("set"))
-            || methodName.length() <= 3) {
+                || methodName.length() <= 3) {
             throw new UnsupportedOperationException("unsupport method:" + methodName);
         }
         char[] nameArr = methodName.toCharArray();

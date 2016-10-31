@@ -6,11 +6,11 @@ package com.baijia.tianxiao.sqlbuilder.bean;
 import com.baijia.tianxiao.sqlbuilder.SqlBuilderContext;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title SqlElement
  * @desc TODO
- * @author cxm
  * @date 2015年12月2日
- * @version 1.0
  */
 public interface SqlElement {
 

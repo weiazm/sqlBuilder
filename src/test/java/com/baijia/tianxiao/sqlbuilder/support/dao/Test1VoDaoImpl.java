@@ -12,7 +12,7 @@ public class Test1VoDaoImpl extends JdbcTemplateDaoSupport<Test1Vo> {
 
     /**
      * 构造函数的参数只是为测试方便加的,正式不要加参数
-     * 
+     *
      * @param jdbcTemplate
      */
     public Test1VoDaoImpl(JdbcTemplate jdbcTemplate) {

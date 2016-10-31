@@ -8,16 +8,17 @@ import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title SimpleCondition
  * @desc TODO
- * @author cxm
  * @date 2015年8月13日
- * @version 1.0
  */
 public class SimpleExp implements Expression {
 
@@ -62,7 +63,7 @@ public class SimpleExp implements Expression {
     @Override
     public String checkAndGetColumn(Map<String, String> fieldMapColumn, Map<String, String> columnMapField) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(this.propertyName),
-            "can not to in properties because in properties is empty");
+                "can not to in properties because in properties is empty");
         // Preconditions.checkArgument(value != null, this.propertyName + " value is null");
         return ColumnUtil.getColumnName(this.propertyName, fieldMapColumn, columnMapField);
     }

@@ -6,19 +6,20 @@ package com.baijia.tianxiao.sqlbuilder.bean;
 import com.baijia.tianxiao.sqlbuilder.SqlBuilderContext;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title OrderByField
  * @desc TODO
- * @author cxm
  * @date 2015年11月26日
- * @version 1.0
  */
 public class OrderByField implements Expression {
 
@@ -59,7 +60,7 @@ public class OrderByField implements Expression {
     @Override
     public String checkAndGetColumn(Map<String, String> fieldMapColumn, Map<String, String> columnMapField) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(this.propertyName),
-            "can not order by field by empty property");
+                "can not order by field by empty property");
         return ColumnUtil.getColumnName(this.propertyName, fieldMapColumn, columnMapField);
     }
 

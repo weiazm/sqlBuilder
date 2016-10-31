@@ -4,17 +4,16 @@
 package com.baijia.tianxiao.sqlbuilder.schema;
 
 import com.google.common.collect.Lists;
+import lombok.Data;
 
 import java.util.List;
 
-import lombok.Data;
-
 /**
+ * @author cxm
+ * @version 1.0
  * @title TableDefine
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
- * @version 1.0
  */
 @Data
 public class TableDefine {

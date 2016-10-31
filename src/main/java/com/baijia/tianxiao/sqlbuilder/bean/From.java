@@ -7,11 +7,11 @@ import com.baijia.tianxiao.sqlbuilder.SqlBuilderContext;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title From
  * @desc TODO
- * @author cxm
  * @date 2015年8月13日
- * @version 1.0
  */
 public class From implements SqlElement {
 

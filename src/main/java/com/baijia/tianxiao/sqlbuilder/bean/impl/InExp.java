@@ -8,29 +8,27 @@ import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title InCondition
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
- * @version 1.0
  */
 public class InExp implements Expression {
 
-    private String properties;
-
-    private Collection<? extends Serializable> values;
-
-    private Map<String, Object> inConditionMap = new HashMap<String, Object>();
-
     public static final SQLOperator OPERATOR = SQLOperator.IN;
+    private String properties;
+    private Collection<? extends Serializable> values;
+    private Map<String, Object> inConditionMap = new HashMap<String, Object>();
 
     public InExp(String properties, Collection<? extends Serializable> values) {
         this.properties = properties;
@@ -63,7 +61,7 @@ public class InExp implements Expression {
     @Override
     public String checkAndGetColumn(Map<String, String> fieldMapColumn, Map<String, String> columnMapField) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(this.properties),
-            "can not to in properties because in properties is empty");
+                "can not to in properties because in properties is empty");
         Preconditions.checkArgument(CollectionUtils.isNotEmpty(values), "in values is empty.");
         return ColumnUtil.getColumnName(this.properties, fieldMapColumn, columnMapField);
     }

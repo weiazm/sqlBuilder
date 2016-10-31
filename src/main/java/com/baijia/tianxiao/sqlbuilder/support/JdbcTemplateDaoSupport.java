@@ -19,17 +19,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -48,22 +37,27 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title JdbcTemplateDaoSupport
  * @desc jdbc template 查询支持
- * @author cxm
  * @date 2015年12月2日
- * @version 1.0
  */
 @Slf4j
 public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implements CommonDao<T> {
 
     // private static final String GENERATED_KEY = "GENERATED_KEY";
 
-    private PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
-
     private static final String isDelColumn = "isDel";
-
+    private PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
     @Getter
     private ColumnDefine idColumn;
 
@@ -84,19 +78,19 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
         this.idColumn = builder.getIdColumn();
     }
 
-    protected SingleSqlBuilder<T> createSqlBuilder(String...queryProps) {
+    protected SingleSqlBuilder<T> createSqlBuilder(String... queryProps) {
         return SingleSqlBuilder.create(this.entityClass, queryProps);
     }
 
     @Override
-    public <PK extends Serializable> T getById(PK id, String...queryProps) {
+    public <PK extends Serializable> T getById(PK id, String... queryProps) {
         SingleSqlBuilder<T> builder = createSqlBuilder(queryProps);
         builder.eq(builder.getIdColumn().getFieldName(), id);
         return uniqueResult(builder);
     }
 
     @Override
-    public <PK extends Serializable> List<T> getByIds(Collection<PK> ids, final String...queryProps) {
+    public <PK extends Serializable> List<T> getByIds(Collection<PK> ids, final String... queryProps) {
         if (CollectionUtils.isEmpty(ids)) {
             return Collections.emptyList();
         }
@@ -113,7 +107,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     @Override
     public <PK extends Serializable> List<T> getByIdsAndOrderByParam(Collection<PK> ids, final String orderByProp,
-        final String...queryProps) {
+                                                                     final String... queryProps) {
         if (CollectionUtils.isEmpty(ids)) {
             return Collections.emptyList();
         }
@@ -131,12 +125,12 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public List<T> getAll(String...queryProps) {
+    public List<T> getAll(String... queryProps) {
         return this.getAll(null, queryProps);
     }
 
     @Override
-    public List<T> getByPage(PageDto page, String...queryProps) {
+    public List<T> getByPage(PageDto page, String... queryProps) {
         SingleSqlBuilder<T> builder = createSqlBuilder(queryProps);
         builder.setPage(page);
         return queryList(builder);
@@ -188,12 +182,12 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public void save(T obj, String...saveProp) {
+    public void save(T obj, String... saveProp) {
         this.save(obj, null, saveProp);
     }
 
     @Override
-    public void saveAll(final List<T> objs, boolean needPk, String...saveProp) {
+    public void saveAll(final List<T> objs, boolean needPk, String... saveProp) {
         if (needPk) {
             saveAll(objs, saveProp);
         } else {
@@ -207,7 +201,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public void saveAll(final List<T> objs, String...saveProp) {
+    public void saveAll(final List<T> objs, String... saveProp) {
         if (CollectionUtils.isEmpty(objs)) {
             log.warn("save result is empty.");
             return;
@@ -291,23 +285,23 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public void save(T obj, Boolean saveNullValue, String...saveProp) {
+    public void save(T obj, Boolean saveNullValue, String... saveProp) {
         this.save(obj, saveNullValue, false, saveProp);
     }
 
     @Override
-    public void saveWithDefaultVal(T obj, String...saveProp) {
+    public void saveWithDefaultVal(T obj, String... saveProp) {
         this.save(obj, false, true, saveProp);
     }
 
     @Override
-    public void save(T obj, Boolean saveNullValue, boolean useDefaultVal, String...saveProp) {
+    public void save(T obj, Boolean saveNullValue, boolean useDefaultVal, String... saveProp) {
         SingleSqlBuilder<T> builder = createSqlBuilder();
         builder.setSetDefaultVal(useDefaultVal);
         boolean saveNull = saveNullValue != null ? saveNullValue : !builder.getTableDefine().isDynamicInsert();
         SaveInfo saveInfo = ColumnUtil.getSaveInfoFromObjs(obj, saveNull, builder.isSetDefaultVal());
         if (ArrayUtils.isEmpty(saveProp)) {
-            saveProp = saveInfo.getColumns().toArray(new String[] {});
+            saveProp = saveInfo.getColumns().toArray(new String[]{});
         }
         String insertSql = builder.toInsertSql(saveProp);
         log.debug("insert sql:{},params:{}", insertSql, saveInfo.getParamMap());
@@ -322,13 +316,13 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public int update(T obj, String...updateProp) {
+    public int update(T obj, String... updateProp) {
         return this.update(obj, null, updateProp);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public int update(Map<String, Object> updateCondtion, String...updateProps) {
+    public int update(Map<String, Object> updateCondtion, String... updateProps) {
         long current = System.currentTimeMillis();
         SingleSqlBuilder<T> builder = createSqlBuilder();
         Preconditions.checkArgument(MapUtils.isNotEmpty(updateCondtion), "update condition is empty");
@@ -364,19 +358,19 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public int update(Map<String, Object> updateCondtion, Boolean updateNull, T obj, String...updateProp) {
+    public int update(Map<String, Object> updateCondtion, Boolean updateNull, T obj, String... updateProp) {
         return this.update(updateCondtion, updateNull, false, obj, updateProp);
     }
 
     @Override
-    public int updateWithDefaultVal(T obj, String...updateProp) {
+    public int updateWithDefaultVal(T obj, String... updateProp) {
         return this.update(null, false, true, obj, updateProp);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public int update(Map<String, Object> updateCondtion, Boolean updateNull, boolean useDefaultVal, T obj,
-        String...updateProp) {
+                      String... updateProp) {
         long current = System.currentTimeMillis();
         SingleSqlBuilder<T> builder = createSqlBuilder();
         builder.setSetDefaultVal(useDefaultVal);
@@ -394,7 +388,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
         } else {
             try {
                 builder.eq(builder.getIdColumn().getFieldName(),
-                    (Serializable) (propertyUtilsBean.getProperty(obj, builder.getIdColumn().getFieldName())));
+                        (Serializable) (propertyUtilsBean.getProperty(obj, builder.getIdColumn().getFieldName())));
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 throw new UnsupportedOperationException("can not update by empty id value obj:" + obj);
             }
@@ -402,27 +396,27 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
         boolean canUpdateNull = updateNull != null ? updateNull : !builder.getTableDefine().isDynamicUpdate();
         SaveInfo saveInfo = ColumnUtil.getSaveInfoFromObjs(obj, canUpdateNull, builder.isSetDefaultVal());
         if (ArrayUtils.isEmpty(updateProp)) {
-            updateProp = saveInfo.getColumns().toArray(new String[] {});
+            updateProp = saveInfo.getColumns().toArray(new String[]{});
         }
         saveInfo.getParamMap().putAll(builder.collectConditionValue());
         String updateSql = builder.toUpdateSql(updateProp);
         log.debug("update sql:{}, params:{},cost:{}ms", updateSql, saveInfo.getParamMap(),
-            System.currentTimeMillis() - current);
+                System.currentTimeMillis() - current);
         return getNamedJdbcTemplate().update(updateSql, saveInfo.getParamMap());
     }
 
     @Override
-    public int update(Map<String, Object> updateCondtion, T obj, String...updateProp) {
+    public int update(Map<String, Object> updateCondtion, T obj, String... updateProp) {
         return this.update(updateCondtion, null, obj, updateProp);
     }
 
     @Override
-    public int update(T obj, Boolean updateNullValue, String...updateProp) {
+    public int update(T obj, Boolean updateNullValue, String... updateProp) {
         return this.update(null, updateNullValue, obj, updateProp);
     }
 
     @Override
-    public void saveOrUpdate(T obj, String...updateProp) {
+    public void saveOrUpdate(T obj, String... updateProp) {
         Object identify = null;
         try {
             identify = propertyUtilsBean.getProperty(obj, this.idColumn.getFieldName());
@@ -437,7 +431,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public void saveOrUpdateWithDefaultVal(T obj, String...updateProp) {
+    public void saveOrUpdateWithDefaultVal(T obj, String... updateProp) {
         Object identify = null;
         try {
             identify = propertyUtilsBean.getProperty(obj, this.idColumn.getFieldName());
@@ -462,7 +456,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     protected <R> List<R> buildResult(@NonNull SingleSqlBuilder<T> builder,
-        Function<SingleSqlBuilder<T>, List<R>> function) {
+                                      Function<SingleSqlBuilder<T>, List<R>> function) {
         long current = System.currentTimeMillis();
         if (fillPageParam(builder, 0)) {
             List<R> result = function.apply(builder);
@@ -481,12 +475,12 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     public <R> List<R> queryList(@NonNull final SingleSqlBuilder<T> builder, final Class<R> clazzR,
-        final boolean forUpdate) {
+                                 final boolean forUpdate) {
         return buildResult(builder, new Function<SingleSqlBuilder<T>, List<R>>() {
             @Override
             public List<R> apply(SingleSqlBuilder<T> arg0) {
                 return getNamedJdbcTemplate().query(builder.toSql(forUpdate), builder.collectConditionValue(),
-                    new BeanPropertyRowMapper<R>(clazzR));
+                        new BeanPropertyRowMapper<R>(clazzR));
             }
         });
     }
@@ -500,7 +494,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
             @Override
             public List<T> apply(SingleSqlBuilder<T> arg0) {
                 return getNamedJdbcTemplate().query(builder.toSql(forUpdate), builder.collectConditionValue(),
-                    new BeanPropertyRowMapper<T>(entityClass));
+                        new BeanPropertyRowMapper<T>(entityClass));
             }
         });
     }
@@ -555,13 +549,13 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     protected void printLog(SingleSqlBuilder<T> builder, Long current, Object o) {
         log.debug("sql:{},map value:{},result:{},cost:{}ms", builder.toSql(), builder.collectConditionValue(), o,
-            System.currentTimeMillis() - current);
+                System.currentTimeMillis() - current);
     }
 
     private boolean fillPageParam(final SingleSqlBuilder<T> sqlBuilder, int currentSize) {
         if (sqlBuilder.getPage() != null) {
             Number number = getNamedJdbcTemplate().queryForObject(sqlBuilder.toCountSql(),
-                sqlBuilder.collectConditionValue(), Long.class);
+                    sqlBuilder.collectConditionValue(), Long.class);
             sqlBuilder.getPage().setCount((number != null ? number.intValue() : 0));
             sqlBuilder.getPage().setCurPageCount(currentSize);
             return sqlBuilder.getPage().getCount() > 0;
@@ -595,7 +589,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     /**
      * 是否有对应列
-     * 
+     *
      * @return
      */
 
@@ -696,7 +690,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     @Override
     public <K extends Serializable> Map<K, Integer> groupCount(Map<String, Object> countCondition, String countField,
-        final String groupField, boolean distinct, final Class<K> keyClass) {
+                                                               final String groupField, boolean distinct, final Class<K> keyClass) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(groupField), "count field is illegal");
         long current = System.currentTimeMillis();
         SingleSqlBuilder<T> builder = createSqlBuilder();
@@ -724,7 +718,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public List<T> queryByCondition(Map<String, Object> condition, PageDto page, String...queryProps) {
+    public List<T> queryByCondition(Map<String, Object> condition, PageDto page, String... queryProps) {
         SingleSqlBuilder<T> builder = createSqlBuilder(queryProps);
         fillBuilderByCondition(condition, builder, page);
         return queryList(builder);
@@ -732,7 +726,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     @Override
     public <R> List<R> queryListBySqlCondition(String select, String countSelect, BuildSqlConditionResult sqlCondition,
-        Class<R> clazz) {
+                                               Class<R> clazz) {
         String countSql = null;
         PageDto page = sqlCondition.getPage();
         if (page != null) {
@@ -756,14 +750,14 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     @Override
     public <R> List<R> queryListBySqlConditionAndCountSql(String select, String countSql,
-        BuildSqlConditionResult sqlCondition, Class<R> clazz) {
+                                                          BuildSqlConditionResult sqlCondition, Class<R> clazz) {
         String querySql = sqlCondition.toSql(select);
         PageDto page = sqlCondition.getPage();
         if (page != null) {
             Preconditions.checkArgument(StringUtils.isNoneBlank(countSql), "count sql is empty");
             log.debug("query  count sql:{},params:{}", countSql, sqlCondition.getQueryParams());
             int count =
-                this.getNamedJdbcTemplate().queryForObject(countSql, sqlCondition.getQueryParams(), Integer.class);
+                    this.getNamedJdbcTemplate().queryForObject(countSql, sqlCondition.getQueryParams(), Integer.class);
             page.setCount(count);
             if (count == 0) {
                 return Collections.emptyList();
@@ -772,12 +766,12 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
         sqlCondition.setPage(page);
         log.debug("query  sql:{},params:{}", querySql, sqlCondition.getQueryParams());
         List<R> results = this.getNamedJdbcTemplate().query(querySql, sqlCondition.getQueryParams(),
-            new BeanPropertyRowMapper<R>(clazz));
+                new BeanPropertyRowMapper<R>(clazz));
         return results;
     }
 
     @Override
-    public List<T> queryByCondition(Map<String, Object> condition, Order order, PageDto page, String...queryProps) {
+    public List<T> queryByCondition(Map<String, Object> condition, Order order, PageDto page, String... queryProps) {
         SingleSqlBuilder<T> builder = createSqlBuilder(queryProps);
         fillBuilderByCondition(condition, builder, page);
         if (order != null) {
@@ -788,7 +782,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
 
     @Override
     public List<T> queryReport(Map<String, Object> queryCondition, String[] queryProps, Order order,
-        String...measures) {
+                               String... measures) {
         Preconditions.checkArgument(ArrayUtils.isNotEmpty(queryProps), "查询的维度为空");
         Preconditions.checkArgument(ArrayUtils.isNotEmpty(measures), "查询的指标为空");
         SingleSqlBuilder<T> builder = createSqlBuilder();
@@ -806,7 +800,7 @@ public class JdbcTemplateDaoSupport<T> extends JdbcTemplateFillSupport<T> implem
     }
 
     @Override
-    public List<T> getAll(Order order, String...props) {
+    public List<T> getAll(Order order, String... props) {
         SingleSqlBuilder<T> builder = createSqlBuilder();
         if (order != null) {
             builder.setOrder(order);

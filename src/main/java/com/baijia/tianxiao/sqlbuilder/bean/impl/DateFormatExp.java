@@ -8,29 +8,25 @@ import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * 
+ * @author zhangbing
+ * @version 1.0
  * @title DateFormatExp
  * @desc TODO
- * @author zhangbing
  * @date 2016年1月11日
- * @version 1.0
  */
 public class DateFormatExp implements Expression {
 
-    private String fieldName;
-
-    private String format;
-
-    private String value;
-
-    private Map<String, Object> paramNameMap = new HashMap<String, Object>();
-
     public static final SQLOperator OPERATOR = SQLOperator.DATEFORMAT;
+    private String fieldName;
+    private String format;
+    private String value;
+    private Map<String, Object> paramNameMap = new HashMap<String, Object>();
 
     public DateFormatExp(String fieldName, String format, String value) {
         this.fieldName = fieldName;
@@ -42,7 +38,7 @@ public class DateFormatExp implements Expression {
     public String toSql(SqlBuilderContext context) {
         StringBuilder sql = new StringBuilder();
         sql.append(" date_format(").append(fieldName).append(",'").append(format).append("')").append("='")
-            .append(value).append("'");
+                .append(value).append("'");
         return sql.toString();
     }
 
@@ -54,7 +50,7 @@ public class DateFormatExp implements Expression {
     @Override
     public String checkAndGetColumn(Map<String, String> fieldMapColumn, Map<String, String> columnMapField) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(this.fieldName),
-            "can not to in properties because in properties is empty");
+                "can not to in properties because in properties is empty");
         Preconditions.checkArgument(format != null && value != null, "format: %s or value: %s is null", format, value);
         return ColumnUtil.getColumnName(this.fieldName, fieldMapColumn, columnMapField);
 

@@ -1,12 +1,6 @@
 package com.baijia.tianxiao.sqlbuilder.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SplitMergeUtils {
     public static int BATCH_SIZE = 500;
@@ -47,7 +41,7 @@ public class SplitMergeUtils {
             List<T> list = new ArrayList<>(orig);
             for (int i = 0; i < len; i++) {
                 result.add(new HashSet<>(list.subList(i * batchSize,
-                    ((i + 1) * batchSize) < size ? (i + 1) * batchSize : size)));
+                        ((i + 1) * batchSize) < size ? (i + 1) * batchSize : size)));
             }
             return result;
         }
@@ -82,7 +76,7 @@ public class SplitMergeUtils {
             }
             for (int i = 0; i < len; i++) {
                 result.add(new HashSet<>(list.subList(i * batchSize,
-                    ((i + 1) * batchSize) < size ? (i + 1) * batchSize : size)));
+                        ((i + 1) * batchSize) < size ? (i + 1) * batchSize : size)));
             }
             return result;
         }

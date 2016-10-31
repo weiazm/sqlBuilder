@@ -3,24 +3,22 @@
  */
 package com.baijia.tianxiao.sqlbuilder.bean;
 
+import com.google.common.collect.Lists;
+import lombok.Data;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.collect.Lists;
-
-import lombok.Data;
-
 /**
- * @title Select
- * @desc 需要重构Select,现在太粗暴
  * @author cxm
- * @date 2015年8月10日
  * @version 1.0
+ * @title Select
+ * @desc 需要重构Select, 现在太粗暴
+ * @date 2015年8月10日
  */
 @Data
 public class Select {

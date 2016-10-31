@@ -4,19 +4,20 @@
 package com.baijia.tianxiao.sqlbuilder.bean;
 
 import com.baijia.tianxiao.sqlbuilder.SqlBuilderContext;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title Where
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
- * @version 1.0
  */
 public class Where {
 

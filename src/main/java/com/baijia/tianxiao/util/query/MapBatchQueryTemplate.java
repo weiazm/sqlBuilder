@@ -5,11 +5,12 @@ import java.util.Map;
 
 /**
  * 实现返回结果为MAP<K,V>的BatchQueryTemplate
- * @title MapBatchQueryTemplate
- * @desc TODO 
+ *
  * @author LJX
- * @date 2014年9月17日
  * @version 1.0
+ * @title MapBatchQueryTemplate
+ * @desc TODO
+ * @date 2014年9月17日
  */
 public class MapBatchQueryTemplate<Q, K, V> extends BatchQueryTemplate<Q, Map<K, V>> {
 

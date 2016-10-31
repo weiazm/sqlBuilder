@@ -1,14 +1,12 @@
-
 /**
  * Baijiahulian.com Inc. Copyright (c) 2014-2016 All Rights Reserved.
  */
 package org.springframework.jdbc.datasource;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -19,33 +17,30 @@ import org.springframework.transaction.support.DefaultTransactionStatus;
 import org.springframework.transaction.support.ResourceTransactionManager;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @title 自定义的本地多数据源事务管理,package不能乱改
- * @desc TODO
  * @author cxm
- * @date 2016年1月23日
  * @version 1.0
+ * @title 自定义的本地多数据源事务管理, package不能乱改
+ * @desc TODO
+ * @date 2016年1月23日
  */
 @Slf4j
 public class MultiDataSourceTransactionManager extends AbstractPlatformTransactionManager
-    implements ResourceTransactionManager, InitializingBean, ApplicationContextAware {
+        implements ResourceTransactionManager, InitializingBean, ApplicationContextAware {
 
     private static final long serialVersionUID = -5647129903917537197L;
-
-    private ApplicationContext context;
+    private static Map<DataSource, DataSourceTransactionManager> dataSourceTransactionManagerMap;
 
     // private Map<String, DataSource> dataSourceMap;
-
-    private static Map<DataSource, DataSourceTransactionManager> dataSourceTransactionManagerMap;
+    private ApplicationContext context;
 
     /**
      * Create a new DataSourceTransactionManager instance. A DataSource has to be set to be able to use it.
-     * 
+     *
      * @see #setDataSource
      */
     public MultiDataSourceTransactionManager() {
@@ -129,9 +124,9 @@ public class MultiDataSourceTransactionManager extends AbstractPlatformTransacti
         }
         for (Map.Entry<DataSource, Object> entry : txObject.getDsTransactionObjectMap().entrySet()) {
             dataSourceTransactionManagerMap.get(entry.getKey())
-                .doCommit(new DefaultTransactionStatus(entry.getValue(), status.isNewTransaction(),
-                    status.isNewSynchronization(), status.isReadOnly(), status.isDebug(),
-                    status.getSuspendedResources()));
+                    .doCommit(new DefaultTransactionStatus(entry.getValue(), status.isNewTransaction(),
+                            status.isNewSynchronization(), status.isReadOnly(), status.isDebug(),
+                            status.getSuspendedResources()));
         }
         txObject.setHasBegin(true);
 
@@ -146,9 +141,9 @@ public class MultiDataSourceTransactionManager extends AbstractPlatformTransacti
         }
         for (Map.Entry<DataSource, Object> entry : txObject.getDsTransactionObjectMap().entrySet()) {
             dataSourceTransactionManagerMap.get(entry.getKey())
-                .doRollback(new DefaultTransactionStatus(entry.getValue(), status.isNewTransaction(),
-                    status.isNewSynchronization(), status.isReadOnly(), status.isDebug(),
-                    status.getSuspendedResources()));
+                    .doRollback(new DefaultTransactionStatus(entry.getValue(), status.isNewTransaction(),
+                            status.isNewSynchronization(), status.isReadOnly(), status.isDebug(),
+                            status.getSuspendedResources()));
         }
         txObject.setHasBegin(true);
     }
@@ -162,9 +157,9 @@ public class MultiDataSourceTransactionManager extends AbstractPlatformTransacti
         }
         for (Map.Entry<DataSource, Object> entry : txObject.getDsTransactionObjectMap().entrySet()) {
             dataSourceTransactionManagerMap.get(entry.getKey())
-                .doSetRollbackOnly(new DefaultTransactionStatus(entry.getValue(), status.isNewTransaction(),
-                    status.isNewSynchronization(), status.isReadOnly(), status.isDebug(),
-                    status.getSuspendedResources()));
+                    .doSetRollbackOnly(new DefaultTransactionStatus(entry.getValue(), status.isNewTransaction(),
+                            status.isNewSynchronization(), status.isReadOnly(), status.isDebug(),
+                            status.getSuspendedResources()));
         }
 
     }
@@ -182,6 +177,20 @@ public class MultiDataSourceTransactionManager extends AbstractPlatformTransacti
 
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Map<String, DataSource> dataSourceMap = this.context.getBeansOfType(DataSource.class);
+        dataSourceTransactionManagerMap = new HashMap<>(dataSourceMap.size());
+        for (DataSource ds : dataSourceMap.values()) {
+            dataSourceTransactionManagerMap.put(ds, new DataSourceTransactionManager(ds));
+        }
+    }
+
     /**
      * DataSource transaction object, representing a ConnectionHolder. Used as transaction object by
      * DataSourceTransactionManager.
@@ -196,20 +205,6 @@ public class MultiDataSourceTransactionManager extends AbstractPlatformTransacti
 
         private boolean readOnly;
 
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.context = applicationContext;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        Map<String, DataSource> dataSourceMap = this.context.getBeansOfType(DataSource.class);
-        dataSourceTransactionManagerMap = new HashMap<>(dataSourceMap.size());
-        for (DataSource ds : dataSourceMap.values()) {
-            dataSourceTransactionManagerMap.put(ds, new DataSourceTransactionManager(ds));
-        }
     }
 
 }

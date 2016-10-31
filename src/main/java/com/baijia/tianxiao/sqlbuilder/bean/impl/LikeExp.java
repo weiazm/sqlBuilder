@@ -8,28 +8,25 @@ import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title EqConditon
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
- * @version 1.0
  */
 public class LikeExp implements Expression {
 
-    private final String properties;
-
-    private final Object value;
-
-    private MatchMode matchMode = MatchMode.EXACT;
-
-    private Map<String, Object> valueMap = new HashMap<String, Object>(1);
-
     public static final SQLOperator OPERATOR = SQLOperator.IN;
+    private final String properties;
+    private final Object value;
+    private MatchMode matchMode = MatchMode.EXACT;
+    private Map<String, Object> valueMap = new HashMap<String, Object>(1);
 
     public LikeExp(String properties, Object value) {
         this.properties = properties;
@@ -67,7 +64,7 @@ public class LikeExp implements Expression {
     @Override
     public String checkAndGetColumn(Map<String, String> fieldMapColumn, Map<String, String> columnMapField) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(this.properties),
-            "can not to in properties because in properties is empty");
+                "can not to in properties because in properties is empty");
         Preconditions.checkArgument(value instanceof String, "value is not string");
         Preconditions.checkArgument(StringUtils.isNoneBlank((String) value), "like value is null.");
         return ColumnUtil.getColumnName(this.properties, fieldMapColumn, columnMapField);

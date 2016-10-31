@@ -5,34 +5,24 @@ package com.baijia.tianxiao.sqlbuilder.util;
 
 import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.AndExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.BetweenExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.DateFormatExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.InExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.LikeExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.MatchMode;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.NotInExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.NotNullExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.NullExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.OrExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.SimpleExp;
-import com.baijia.tianxiao.sqlbuilder.bean.impl.TupleInExp;
+import com.baijia.tianxiao.sqlbuilder.bean.impl.*;
 import com.google.common.collect.Lists;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title SqlConditions
  * @desc 生成查询条件的接口
- * @author cxm
  * @date 2015年12月1日
- * @version 1.0
  */
 public class Expressions {
 
     public static <T extends Serializable> Expression createSimpleExpression(String fieldName, T value,
-        SQLOperator operator) {
+                                                                             SQLOperator operator) {
         return new SimpleExp(fieldName, value, operator);
     }
 
@@ -104,7 +94,7 @@ public class Expressions {
         return new AndExp(leftExp, rightExp);
     }
 
-    public static <T extends Serializable> Expression and(Expression...exps) {
+    public static <T extends Serializable> Expression and(Expression... exps) {
         return new AndExp(exps);
     }
 
@@ -112,7 +102,7 @@ public class Expressions {
         return new OrExp(leftExp, rightExp);
     }
 
-    public static <T extends Serializable> Expression or(Expression...exps) {
+    public static <T extends Serializable> Expression or(Expression... exps) {
         return new OrExp(exps);
     }
 

@@ -11,32 +11,26 @@ import com.baijia.tianxiao.sqlbuilder.support.vo.TestVo;
 import com.baijia.tianxiao.sqlbuilder.util.H2Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.*;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title JdbcTemplateDaoSupportTest
  * @desc TODO
- * @author cxm
  * @date 2015年12月3日
- * @version 1.0
  */
 public class JdbcTemplateDaoSupportTest {
 
-    private TestVoDaoImpl daoImpl;
-
-    private Test1VoDaoImpl dao1Impl;
-
     private static JdbcTemplate jdbcTemplate;
+    private TestVoDaoImpl daoImpl;
+    private Test1VoDaoImpl dao1Impl;
 
     @BeforeClass
     public static void beforeClass() {
@@ -194,8 +188,8 @@ public class JdbcTemplateDaoSupportTest {
         System.out.println(dao1Impl.getById(test1Vo.getId()));
 
         Collection<List<Object>> values = Lists.newArrayList();
-        values.add(Lists.<Object> newArrayList("4", "1.11"));
-        values.add(Lists.<Object> newArrayList("5", "1.11"));
+        values.add(Lists.<Object>newArrayList("4", "1.11"));
+        values.add(Lists.<Object>newArrayList("5", "1.11"));
 
         List<String> propers = Lists.newArrayList("id", "num");
 

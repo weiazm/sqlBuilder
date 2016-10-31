@@ -10,30 +10,29 @@ import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.baijia.tianxiao.sqlbuilder.bean.SqlElement;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
 
 /**
- * 
+ * @author cxm
+ * @version 1.0
  * @title AndExp
  * @desc TODO
- * @author cxm
  * @date 2015年12月1日
- * @version 1.0
  */
 public class AndExp implements Expression {
 
+    public static final SQLOperator OPERATOR = SQLOperator.AND;
     private Expression[] conditions;
 
-    public static final SQLOperator OPERATOR = SQLOperator.AND;
-
     public AndExp(Expression leftCondition, Expression rightCondition) {
-        this.conditions = new Expression[] { leftCondition, rightCondition };
+        this.conditions = new Expression[]{leftCondition, rightCondition};
     }
 
-    public AndExp(Expression...conditions) {
+    public AndExp(Expression... conditions) {
         this.conditions = conditions;
     }
 

@@ -5,17 +5,18 @@ package com.baijia.tianxiao.sqlbuilder;
 
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.google.common.base.Preconditions;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title SqlBuilderContext
  * @desc TODO
- * @author cxm
  * @date 2015年12月2日
- * @version 1.0
  */
 @Data
 public class SqlBuilderContext {
@@ -34,7 +35,7 @@ public class SqlBuilderContext {
         Preconditions.checkArgument(StringUtils.isNoneBlank(properties), "properties can not be empty");
         Preconditions.checkNotNull(operator, "sql operator can not be null");
         properties =
-            properties.replace('.', '_').replace(' ', '_').replace('(', '_').replace(')', '_').replace(',', '_');
+                properties.replace('.', '_').replace(' ', '_').replace('(', '_').replace(')', '_').replace(',', '_');
 
         StringBuilder sb = new StringBuilder();
         sb.append(operator.name()).append("_").append(properties).append("_").append(conditionIndex.getAndIncrement());

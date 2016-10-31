@@ -1,14 +1,13 @@
-
 package com.baijia.tianxiao.sqlbuilder.dto;
 
 import lombok.Data;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title PageRequestDto
  * @desc TODO
- * @author cxm
  * @date 2015年12月26日
- * @version 1.0
  */
 @Data
 public class PageRequestDto {
@@ -25,7 +24,7 @@ public class PageRequestDto {
     private transient PageDto pageDto;
 
     /**
-     * 
+     *
      */
     public PageRequestDto() {
         super();

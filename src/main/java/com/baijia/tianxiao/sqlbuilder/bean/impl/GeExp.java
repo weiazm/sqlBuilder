@@ -6,11 +6,11 @@ package com.baijia.tianxiao.sqlbuilder.bean.impl;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title GeExp
  * @desc TODO
- * @author cxm
  * @date 2015年12月1日
- * @version 1.0
  */
 public class GeExp extends SimpleExp {
 

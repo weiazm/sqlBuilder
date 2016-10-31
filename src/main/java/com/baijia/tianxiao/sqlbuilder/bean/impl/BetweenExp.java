@@ -8,28 +8,25 @@ import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SQLOperator;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title Between
  * @desc TODO
- * @author cxm
  * @date 2015年8月13日
- * @version 1.0
  */
 public class BetweenExp implements Expression {
 
-    private String properties;
-
-    private Comparable<?> start;
-
-    private Comparable<?> end;
-
-    private Map<String, Object> paramNameMap = new HashMap<String, Object>();
-
     public static final SQLOperator OPERATOR = SQLOperator.BETWEEN;
+    private String properties;
+    private Comparable<?> start;
+    private Comparable<?> end;
+    private Map<String, Object> paramNameMap = new HashMap<String, Object>();
 
     public BetweenExp(String properties, Comparable<?> start, Comparable<?> end) {
         this.properties = properties;
@@ -57,7 +54,7 @@ public class BetweenExp implements Expression {
     @Override
     public String checkAndGetColumn(Map<String, String> fieldMapColumn, Map<String, String> columnMapField) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(this.properties),
-            "can not to in properties because in properties is empty");
+                "can not to in properties because in properties is empty");
         Preconditions.checkArgument(start != null && end != null, "start: %s or end: %s is null", start, end);
         return ColumnUtil.getColumnName(this.properties, fieldMapColumn, columnMapField);
 

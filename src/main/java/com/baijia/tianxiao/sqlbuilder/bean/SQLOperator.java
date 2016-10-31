@@ -4,11 +4,11 @@
 package com.baijia.tianxiao.sqlbuilder.bean;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title SqlOperator
  * @desc TODO
- * @author cxm
  * @date 2015年12月1日
- * @version 1.0
  */
 public enum SQLOperator {
 
@@ -25,7 +25,7 @@ public enum SQLOperator {
     LE(" <= "),
 
     IN(" IN "),
-    
+
     NOT_IN(" NOT_IN "),
 
     AND(" AND "),
@@ -39,10 +39,8 @@ public enum SQLOperator {
     IS_NOT_NULL(" IS_NOT_NULL "),
 
     BETWEEN(" BETWEEN "),
-    
-    DATEFORMAT(" DATE_FORMAT ")
 
-    ;
+    DATEFORMAT(" DATE_FORMAT ");
 
     private String operator;
 

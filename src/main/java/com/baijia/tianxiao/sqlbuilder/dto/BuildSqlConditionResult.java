@@ -1,19 +1,18 @@
-
 package com.baijia.tianxiao.sqlbuilder.dto;
 
-import com.baijia.tianxiao.sqlbuilder.dto.PageDto;
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title BuildSqlConditionResult
  * @desc TODO
- * @author cxm
  * @date 2016年5月9日
- * @version 1.0
  */
 @Data
 public class BuildSqlConditionResult {
@@ -36,12 +35,12 @@ public class BuildSqlConditionResult {
 
     public String toSql(String select) {
         if (StringUtils.isNoneBlank(from.toString().trim())
-            && !from.toString().toLowerCase().trim().startsWith("from")) {
+                && !from.toString().toLowerCase().trim().startsWith("from")) {
             from.append(" from ", 0, 6);
         }
 
         if (StringUtils.isNoneBlank(where.toString().trim())
-            && !where.toString().toLowerCase().trim().startsWith("where")) {
+                && !where.toString().toLowerCase().trim().startsWith("where")) {
             where.append(" where ", 0, 7);
         }
 

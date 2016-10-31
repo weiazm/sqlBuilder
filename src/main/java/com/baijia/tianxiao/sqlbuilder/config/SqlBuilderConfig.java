@@ -1,4 +1,3 @@
-
 package com.baijia.tianxiao.sqlbuilder.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -6,12 +5,12 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * 导入数据源配置文件
- * 
+ *
+ * @author cxm
+ * @version 1.0
  * @title SqlBuilderConfig
  * @desc TODO
- * @author cxm
  * @date 2015年12月17日
- * @version 1.0
  */
 @Configuration
 @PropertySource("classpath:db_config.properties")

@@ -3,11 +3,11 @@ package com.baijia.tianxiao.sqlbuilder.bean;
 import java.util.Map;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title Condition
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
- * @version 1.0
  */
 public interface Expression extends SqlElement {
 

@@ -9,11 +9,11 @@ import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title Order
  * @desc TODO
- * @author cxm
  * @date 2015年8月13日
- * @version 1.0
  */
 public class Order implements SqlElement {
 
@@ -22,13 +22,13 @@ public class Order implements SqlElement {
 
     private boolean orderGBKFun;
 
-    private Order(boolean ascending, boolean orderGBKFun, String...propertyName) {
+    private Order(boolean ascending, boolean orderGBKFun, String... propertyName) {
         this.ascending = ascending;
         this.propertyName = propertyName;
         this.orderGBKFun = orderGBKFun;
     }
 
-    private Order(boolean ascending, String...propertyName) {
+    private Order(boolean ascending, String... propertyName) {
         this(ascending, false, propertyName);
     }
 
@@ -38,7 +38,7 @@ public class Order implements SqlElement {
      * @param propertyName
      * @return Order
      */
-    public static Order asc(String...propertyName) {
+    public static Order asc(String... propertyName) {
         return asc(false, propertyName);
     }
 
@@ -46,7 +46,7 @@ public class Order implements SqlElement {
         return new Order(true, orderGBKFun, propertyName);
     }
 
-    public static Order asc(boolean orderGBKFun, String...propertyName) {
+    public static Order asc(boolean orderGBKFun, String... propertyName) {
         return new Order(true, orderGBKFun, propertyName);
     }
 
@@ -56,7 +56,7 @@ public class Order implements SqlElement {
      * @param propertyName
      * @return Order
      */
-    public static Order desc(String...propertyName) {
+    public static Order desc(String... propertyName) {
         return desc(false, propertyName);
     }
 
@@ -64,7 +64,7 @@ public class Order implements SqlElement {
         return new Order(false, orderGBKFun, propertyName);
     }
 
-    public static Order desc(boolean orderGBKFun, String...propertyName) {
+    public static Order desc(boolean orderGBKFun, String... propertyName) {
         return new Order(false, orderGBKFun, propertyName);
     }
 

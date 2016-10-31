@@ -1,23 +1,23 @@
-
 /**
  * Baijiahulian.com Inc. Copyright (c) 2014-2016 All Rights Reserved.
  */
 package com.baijia.tianxiao.sqlbuilder.support;
 
 import com.baijia.tianxiao.sqlbuilder.config.SqlBuilderConfig;
-import java.util.Map;
-import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
+import java.util.Map;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title DataSourceLookUpUtil
  * @desc TODO
- * @author cxm
  * @date 2016年1月21日
- * @version 1.0
  */
 public class DataSourceLookUpUtil {
 

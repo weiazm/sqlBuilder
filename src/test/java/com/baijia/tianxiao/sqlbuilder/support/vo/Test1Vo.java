@@ -3,22 +3,19 @@
  */
 package com.baijia.tianxiao.sqlbuilder.support.vo;
 
-import com.baijia.tianxiao.sqlbuilder.annotation.Column;
-import com.baijia.tianxiao.sqlbuilder.annotation.Entity;
-import com.baijia.tianxiao.sqlbuilder.annotation.GeneratedValue;
-import com.baijia.tianxiao.sqlbuilder.annotation.Id;
-import com.baijia.tianxiao.sqlbuilder.annotation.Table;
+import com.baijia.tianxiao.sqlbuilder.annotation.*;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
-import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title TestVo
  * @desc TODO
- * @author cxm
  * @date 2015年12月3日
- * @version 1.0
  */
 @Entity(dynamicInsert = true, dynamicUpdate = true, name = "test1")
 @Table(catalog = "test1")
@@ -26,25 +23,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Test1Vo {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Column(name = "num")
+    private Number number;
+    @Column
+    private String test;
+    @Column(defaultVal = "0")
+    private Date startTime;
+    private String abc;
+
     public Test1Vo(Number number, String test) {
         this.number = number;
         this.test = test;
     }
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(name = "num")
-    private Number number;
-
-    @Column
-    private String test;
-
-    @Column(defaultVal = "0")
-    private Date startTime;
-
-    private String abc;
 
     public static void main(String[] args) {
         Test1Vo test = new Test1Vo();

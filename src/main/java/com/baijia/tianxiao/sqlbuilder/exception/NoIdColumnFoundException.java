@@ -4,11 +4,11 @@
 package com.baijia.tianxiao.sqlbuilder.exception;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title NoIdColumnFoundException
  * @desc TODO
- * @author cxm
  * @date 2015年12月12日
- * @version 1.0
  */
 public class NoIdColumnFoundException extends RuntimeException {
 

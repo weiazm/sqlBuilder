@@ -7,16 +7,17 @@ import com.baijia.tianxiao.sqlbuilder.SqlBuilderContext;
 import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.util.ColumnUtil;
 import com.google.common.base.Preconditions;
-import java.util.Collections;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
+import java.util.Map;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title NullExpression
  * @desc TODO
- * @author cxm
  * @date 2015年8月14日
- * @version 1.0
  */
 public class NullExp implements Expression {
 
@@ -42,7 +43,7 @@ public class NullExp implements Expression {
     @Override
     public String checkAndGetColumn(Map<String, String> fieldMapColumn, Map<String, String> columnMapField) {
         Preconditions.checkArgument(StringUtils.isNoneBlank(this.properties),
-            "can not to in properties because in properties is empty");
+                "can not to in properties because in properties is empty");
         return ColumnUtil.getColumnName(this.properties, fieldMapColumn, columnMapField);
     }
 

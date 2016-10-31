@@ -4,11 +4,11 @@
 package com.baijia.tianxiao.sqlbuilder.util;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title VariableChangeUtils
  * @desc TODO
- * @author cxm
  * @date 2015年9月17日
- * @version 1.0
  */
 public class VariableChangeUtils {
 
@@ -16,7 +16,7 @@ public class VariableChangeUtils {
 
     /**
      * 驼峰标识转换成下划线
-     * 
+     *
      * @param param
      * @return
      */
@@ -42,7 +42,7 @@ public class VariableChangeUtils {
 
     /**
      * 下划线转成驼峰
-     * 
+     *
      * @param param
      * @return
      */

@@ -1,25 +1,14 @@
 package com.baijia.tianxiao.sqlbuilder.bean.impl;
 
+import com.google.common.collect.Lists;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Lists;
-
 public abstract class MatchMode {
-    private final String name;
     private static final Map<String, MatchMode> INSTANCES = new HashMap<String, MatchMode>();
-
     private static final List<Character> MYSQL_KEY_CHARS = Lists.newArrayList('%', '_', '\\');
-
-    protected MatchMode(String name) {
-        this.name = name;
-    }
-
-    public String toString() {
-        return name;
-    }
-
     /**
      * Match the entire string to the pattern
      */
@@ -28,7 +17,6 @@ public abstract class MatchMode {
             return escapeKey(pattern);
         }
     };
-
     /**
      * Match the start of the string to the pattern
      */
@@ -37,7 +25,6 @@ public abstract class MatchMode {
             return escapeKey(pattern) + '%';
         }
     };
-
     /**
      * Match the end of the string to the pattern
      */
@@ -46,7 +33,6 @@ public abstract class MatchMode {
             return '%' + escapeKey(pattern);
         }
     };
-
     /**
      * Match the pattern anywhere in the string
      */
@@ -61,6 +47,16 @@ public abstract class MatchMode {
         INSTANCES.put(END.name, END);
         INSTANCES.put(START.name, START);
         INSTANCES.put(ANYWHERE.name, ANYWHERE);
+    }
+
+    private final String name;
+
+    protected MatchMode(String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return name;
     }
 
     private Object readResolve() {

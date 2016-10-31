@@ -8,27 +8,28 @@ import com.baijia.tianxiao.sqlbuilder.bean.Expression;
 import com.baijia.tianxiao.sqlbuilder.bean.SqlElement;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title OrCondition
  * @desc TODO
- * @author cxm
  * @date 2015年8月12日
- * @version 1.0
  */
 public class OrExp implements Expression {
 
     private Expression[] conditions;
 
     public OrExp(Expression leftCondition, Expression rightCondition) {
-        this.conditions = new Expression[] { leftCondition, rightCondition };
+        this.conditions = new Expression[]{leftCondition, rightCondition};
     }
 
-    public OrExp(Expression...conditions) {
+    public OrExp(Expression... conditions) {
         this.conditions = conditions;
     }
 

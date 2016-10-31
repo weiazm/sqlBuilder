@@ -11,14 +11,22 @@ public enum UserRole {
 
     STUDENT(2, "学生");
 
+    private int role;
+    private String label;
+
     private UserRole(int role, String label) {
         this.role = role;
         this.label = label;
     }
 
-    private int role;
-
-    private String label;
+    public static String getLabelByRole(int role) {
+        for (UserRole ur : UserRole.values()) {
+            if (ur.getRole() == role) {
+                return ur.getLabel();
+            }
+        }
+        return "未知来源";
+    }
 
     public int getRole() {
         return role;
@@ -34,14 +42,5 @@ public enum UserRole {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public static String getLabelByRole(int role) {
-        for (UserRole ur : UserRole.values()) {
-            if (ur.getRole() == role) {
-                return ur.getLabel();
-            }
-        }
-        return "未知来源";
     }
 }

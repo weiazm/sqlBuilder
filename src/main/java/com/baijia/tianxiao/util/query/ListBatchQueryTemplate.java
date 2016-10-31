@@ -5,11 +5,12 @@ import java.util.List;
 
 /**
  * 实现返回结果为LIST<V>的BatchQueryTemplate
- * @title ListBatchQueryTemplate
- * @desc TODO 
+ *
  * @author LJX
- * @date 2014年9月17日
  * @version 1.0
+ * @title ListBatchQueryTemplate
+ * @desc TODO
+ * @date 2014年9月17日
  */
 public class ListBatchQueryTemplate<Q, V> extends BatchQueryTemplate<Q, List<V>> {
 

@@ -7,9 +7,9 @@ import com.baijia.tianxiao.sqlbuilder.util.VariableChangeUtils;
 import lombok.Data;
 
 /**
+ * @author cxm
  * @title ColumnDefine
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
  */
 @Data

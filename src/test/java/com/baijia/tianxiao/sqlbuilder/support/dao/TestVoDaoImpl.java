@@ -3,9 +3,10 @@ package com.baijia.tianxiao.sqlbuilder.support.dao;
 import com.baijia.tianxiao.sqlbuilder.SingleSqlBuilder;
 import com.baijia.tianxiao.sqlbuilder.support.JdbcTemplateDaoSupport;
 import com.baijia.tianxiao.sqlbuilder.support.vo.TestVo;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import java.util.Collection;
 import java.util.List;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 public class TestVoDaoImpl extends JdbcTemplateDaoSupport<TestVo> {
 
@@ -13,7 +14,7 @@ public class TestVoDaoImpl extends JdbcTemplateDaoSupport<TestVo> {
 
     /**
      * 构造函数的参数只是为测试方便加的,正式不要加参数
-     * 
+     *
      * @param jdbcTemplate
      */
     public TestVoDaoImpl(JdbcTemplate jdbcTemplate) {

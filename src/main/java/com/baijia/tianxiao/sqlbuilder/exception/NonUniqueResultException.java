@@ -1,11 +1,11 @@
 package com.baijia.tianxiao.sqlbuilder.exception;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title NonUniqueResultException
  * @desc TODO
- * @author cxm
  * @date 2015年9月7日
- * @version 1.0
  */
 public class NonUniqueResultException extends RuntimeException {
 

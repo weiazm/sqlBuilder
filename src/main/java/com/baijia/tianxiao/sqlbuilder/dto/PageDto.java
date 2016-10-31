@@ -4,11 +4,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
+ * @author wangzhigang
+ * @version 1.0
  * @title PageDto
  * @desc TODO
- * @author wangzhigang
  * @date 2014年10月16日
- * @version 1.0
  */
 @ToString
 @EqualsAndHashCode
@@ -17,6 +17,16 @@ public class PageDto implements Cloneable {
     private static final int DEF_PAGE_NUM = 1;
 
     private static final PageDto DEF_PAGE_DTO = new PageDto();
+    private Integer count;
+    private Integer curPageCount;
+    private Integer pageNum;
+    private Integer pageSize;
+    public PageDto() {
+        this.count = 0;
+        // this.curPageCount = 0;
+        this.pageNum = DEF_PAGE_NUM;
+        this.pageSize = DEF_PAGE_SIZE;
+    }
 
     public static final PageDto getDefPageDto() {
         try {
@@ -24,18 +34,6 @@ public class PageDto implements Cloneable {
         } catch (CloneNotSupportedException e) {
             return null;
         }
-    }
-
-    private Integer count;
-    private Integer curPageCount;
-    private Integer pageNum;
-    private Integer pageSize;
-
-    public PageDto() {
-        this.count = 0;
-        // this.curPageCount = 0;
-        this.pageNum = DEF_PAGE_NUM;
-        this.pageSize = DEF_PAGE_SIZE;
     }
 
     public Integer getCount() {
@@ -67,18 +65,18 @@ public class PageDto implements Cloneable {
         return pageNum;
     }
 
-    public Integer getTotalPageNum() {
-        if (count == 0) {
-            return 0;
-        }
-        return (int) Math.ceil(count / pageSize.doubleValue());
-    }
-
     public void setPageNum(Integer pageNum) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = DEF_PAGE_NUM;
         }
         this.pageNum = pageNum;
+    }
+
+    public Integer getTotalPageNum() {
+        if (count == 0) {
+            return 0;
+        }
+        return (int) Math.ceil(count / pageSize.doubleValue());
     }
 
     public void increasePageNum() {

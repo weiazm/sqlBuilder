@@ -6,7 +6,6 @@ package com.baijia.tianxiao.sqlbuilder.support;
 import com.baijia.tianxiao.sqlbuilder.annotation.Entity;
 import com.baijia.tianxiao.sqlbuilder.annotation.Table;
 import com.baijia.tianxiao.sqlbuilder.exception.NoSuitableJdbcTemplateException;
-import javax.sql.DataSource;
 import lombok.Getter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,12 +14,14 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import javax.sql.DataSource;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title JdbcTemplateInit
  * @desc TODO
- * @author cxm
  * @date 2015年12月3日
- * @version 1.0
  */
 public class JdbcTemplateFillSupport<T> implements ApplicationContextAware, InitializingBean {
 
@@ -34,7 +35,7 @@ public class JdbcTemplateFillSupport<T> implements ApplicationContextAware, Init
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     /**
-     * 
+     *
      */
     public JdbcTemplateFillSupport() {
     }

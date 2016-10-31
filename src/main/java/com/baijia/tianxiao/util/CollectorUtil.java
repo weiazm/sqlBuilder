@@ -1,24 +1,18 @@
 package com.baijia.tianxiao.util;
 
 import com.google.common.base.Function;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.collections4.TransformerUtils;
 
+import java.util.*;
+
 /**
+ * @author cxm
+ * @version 1.0
  * @title CollectorUtil
  * @desc TODO
- * @author cxm
  * @date 2015年9月27日
- * @version 1.0
  */
 public class CollectorUtil {
     public static <K, V> Map<K, List<V>> group(Collection<V> values, Function<V, K> keyFun) {
@@ -39,7 +33,6 @@ public class CollectorUtil {
     }
 
     /**
-     * 
      * @param values
      * @param keyTransformer 可以适用TransformerUtils
      * @return
@@ -62,7 +55,7 @@ public class CollectorUtil {
     }
 
     public static <K, V, O> Map<K, List<V>> group(Collection<O> values, Function<O, K> keyFun,
-        Function<O, V> valueFun) {
+                                                  Function<O, V> valueFun) {
         if (CollectionUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
@@ -80,7 +73,7 @@ public class CollectorUtil {
     }
 
     public static <K, V, O> Map<K, List<V>> group(Collection<O> values, Transformer<O, K> keyFun,
-        Transformer<O, V> valueFun) {
+                                                  Transformer<O, V> valueFun) {
         if (CollectionUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
@@ -112,7 +105,7 @@ public class CollectorUtil {
     }
 
     public static <K, V, O> Map<K, V> collectMap(Collection<O> values, Transformer<O, K> keyFun,
-        Transformer<O, V> valueFun) {
+                                                 Transformer<O, V> valueFun) {
         if (CollectionUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
@@ -127,8 +120,8 @@ public class CollectorUtil {
     }
 
     public static <K, V, O> Map<K, V> collectMap(Collection<O> values, String keyMethodName, String valueMethodName) {
-        return collectMap(values, TransformerUtils.<O, K> invokerTransformer(keyMethodName),
-            TransformerUtils.<O, V> invokerTransformer(valueMethodName));
+        return collectMap(values, TransformerUtils.<O, K>invokerTransformer(keyMethodName),
+                TransformerUtils.<O, V>invokerTransformer(valueMethodName));
     }
 
     public static <K, O> Map<K, O> collectMap(Collection<O> values, Function<O, K> keyFun) {
@@ -160,16 +153,16 @@ public class CollectorUtil {
     }
 
     public static <K, O> Map<K, O> collectMap(Collection<O> values, String methodName) {
-        return collectMap(values, TransformerUtils.<O, K> invokerTransformer(methodName));
+        return collectMap(values, TransformerUtils.<O, K>invokerTransformer(methodName));
     }
 
     public static <K, V> Map<K, V> groupAndCalcu(Collection<V> values, Function<V, K> keyFun,
-        Calculate<V> calculateFun) {
+                                                 Calculate<V> calculateFun) {
         return groupAndCalcu(values, null, keyFun, calculateFun);
     }
 
     public static <K, V> Map<K, V> groupAndCalcu(Collection<V> values, Map<K, V> result, Function<V, K> keyFun,
-        Calculate<V> calculateFun) {
+                                                 Calculate<V> calculateFun) {
         if (result == null) {
             result = new HashMap<>();
         }
@@ -185,13 +178,8 @@ public class CollectorUtil {
         return result;
     }
 
-    public interface Calculate<T> {
-
-        T calc(T t1, T t2);
-    }
-
     public static <K, V> Map<K, V> groupAndCalcu(Collection<V> values, Transformer<V, K> keyFun,
-        Calculate<V> calculateFun) {
+                                                 Calculate<V> calculateFun) {
         Map<K, V> result = new HashMap<>();
         if (CollectionUtils.isEmpty(values)) {
             return Collections.emptyMap();
@@ -219,7 +207,7 @@ public class CollectorUtil {
     }
 
     public static <K, O> Collection<K> collect(Collection<O> values, String methodName) {
-        return collect(values, TransformerUtils.<O, K> invokerTransformer(methodName));
+        return collect(values, TransformerUtils.<O, K>invokerTransformer(methodName));
     }
 
     public static <K, O> Collection<K> collect(Collection<O> values, Transformer<O, K> keyFun) {
@@ -234,5 +222,10 @@ public class CollectorUtil {
             }
         }
         return results;
+    }
+
+    public interface Calculate<T> {
+
+        T calc(T t1, T t2);
     }
 }

@@ -1,10 +1,6 @@
 package com.baijia.tianxiao.sqlbuilder.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 @Documented
 @Target(ElementType.TYPE)
@@ -17,15 +13,19 @@ public @interface Entity {
      */
     String name() default "";
 
-    /** 默认不插入null值 */
+    /**
+     * 默认不插入null值
+     */
     boolean dynamicInsert() default true;
 
-    /** 默认不更新属性为null值的字段 */
+    /**
+     * 默认不更新属性为null值的字段
+     */
     boolean dynamicUpdate() default true;
 
     /**
      * 当前表对应的数据源的bean的名称,如果只有一个数据源可以不配
-     * 
+     *
      * @return
      */
     String dataSourceBeanName() default "";

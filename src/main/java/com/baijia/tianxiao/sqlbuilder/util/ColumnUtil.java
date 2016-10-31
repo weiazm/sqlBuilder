@@ -12,21 +12,22 @@ import com.baijia.tianxiao.sqlbuilder.schema.ColumnDefine;
 import com.baijia.tianxiao.sqlbuilder.schema.TableDefine;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
+ * @author cxm
+ * @version 1.0
  * @title ColumnUtil
  * @desc TODO
- * @author cxm
  * @date 2015年8月10日
- * @version 1.0
  */
 @Slf4j
 public class ColumnUtil {
@@ -39,7 +40,7 @@ public class ColumnUtil {
             if (column.getFieldName().equals(properties)) {
                 if (fieldFix != null) {
                     throw new UnsupportedOperationException(
-                        "properties is exist in column:" + fieldFix + " and column:" + column);
+                            "properties is exist in column:" + fieldFix + " and column:" + column);
                 }
                 fieldFix = column;
             } else if (column.getColumnName().equals(properties)) {
@@ -54,7 +55,7 @@ public class ColumnUtil {
     }
 
     public static String getColumnName(String properties, Map<String, String> fieldMapColumn,
-        Map<String, String> columnMapField) {
+                                       Map<String, String> columnMapField) {
         String columnName = fieldMapColumn.get(properties);
         if (columnName == null) {
             if (columnMapField.containsKey(properties)) {
